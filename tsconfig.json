@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -28,10 +24,8 @@
       "slices/*": ["slices/*"],
       "store/*": ["store/*"]
     },
-    "sourceMap": true,
+    "sourceMap": true
   },
   "exclude": ["node_modules", "build"],
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
