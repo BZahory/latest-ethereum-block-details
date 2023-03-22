@@ -1,8 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { updateLatestBlock } from 'slices/ethereum-block-data/actions';
+import { useAppDispatch } from 'hooks/redux';
 
 function App() {
+  const dispatch = useAppDispatch();
+  dispatch(updateLatestBlock()); // TODO: remove/replace later (test)
   return (
     <div className='App'>
       <header className='App-header'>
