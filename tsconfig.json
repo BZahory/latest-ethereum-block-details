@@ -22,7 +22,9 @@
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
       "slices/*": ["slices/*"],
-      "store/*": ["store/*"]
+      "store/*": ["store/*"],
+      "hooks/*": ["hooks/*"]
+
     },
     "sourceMap": true
   },
