@@ -29,15 +29,21 @@ function App() {
 
   const { transactions, status } = useAppSelector(getLatestEthereumBlockTransactions);
 
-  return status === ResponseStatus.Fetched && transactions.length > 0 ? (
-    <div className='flex flex-col w-full gap-y-1 items-center'>
-      {transactions.map((tx) => (
-        <TransactionBlock key={tx.hash} transaction={tx} />
-      ))}
-    </div>
-  ) : (
-    <span>No tx available</span>
-  );
+  if (status === ResponseStatus.Fetched && transactions.length > 0) {
+    return (
+      <div className='flex flex-col w-full gap-y-1 items-center'>
+        {transactions.map((tx) => (
+          <TransactionBlock key={tx.hash} transaction={tx} />
+        ))}
+      </div>
+    );
+  } else if (status === ResponseStatus.Error) {
+    return <span>Could not fetch</span>;
+  } else if (status === ResponseStatus.Loading) {
+    return <span>Loading...</span>;
+  } else {
+    return <span>Something went wrong.</span>;
+  }
 }
 
 export default App;

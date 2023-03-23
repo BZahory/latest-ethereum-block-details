@@ -12,8 +12,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 const DataPair = ({ label, data }: { label: string; data?: string }) => (
   <div className='flex flex-1 flex-col items-center'>
-    <div>{label}</div>
-    {data ? <div>{data}</div> : null}
+    <div className='text-xl font-bold'>{label}</div>
+    {data ? <div className='text-lg'>{data}</div> : null}
   </div>
 );
 
