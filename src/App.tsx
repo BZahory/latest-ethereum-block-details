@@ -1,16 +1,30 @@
 import { updateLatestBlock, updateLatestEtherPrice } from 'slices/ethereum-block-data/actions';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getLatestEthereumBlockTransactions } from 'slices/ethereum-block-data/selector';
-import { ResponseStatus } from './constants';
+import {
+  getLatestEthereumBlockTransactions,
+  getLatestEtherPrice,
+} from 'slices/ethereum-block-data/selector';
+import { BLOCK_REFRESH_INTERVAL, ResponseStatus } from './constants';
 import TransactionBlock from 'components/TransactionBlock';
 import { useEffect } from 'react';
 
 function App() {
   const dispatch = useAppDispatch();
 
+  const { status: ethPriceStatus } = useAppSelector(getLatestEtherPrice);
+
   useEffect(() => {
-    dispatch(updateLatestBlock()); // TODO: remove/replace later (test)
-    dispatch(updateLatestEtherPrice()); // TODO: remove/replace later (test)
+    const refreshFunc = () => {
+      dispatch(updateLatestBlock());
+      if (ethPriceStatus !== ResponseStatus.Fetched) dispatch(updateLatestEtherPrice());
+    };
+
+    refreshFunc();
+    const interval = setInterval(() => {
+      refreshFunc();
+    }, BLOCK_REFRESH_INTERVAL);
+
+    return () => clearInterval(interval);
   }, []);
 
   const { transactions, status } = useAppSelector(getLatestEthereumBlockTransactions);
