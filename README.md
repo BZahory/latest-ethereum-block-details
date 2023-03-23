@@ -13,7 +13,7 @@ components (i.e., transaction list items, ERC-20 transfers modal) read this stat
 There are pieces in place meant to make the code scalable (e.g., use of a root reducer, TS and
 lint rules, expandable file structure), with the notable exception of a react-router-dom
 implementation; it's unclear if this would scale as a single-page application or not until further
-development, as this would violate the boat anchor principle if done right now.
+development, so this would violate the boat anchor principle if done right now.
 
 ## Available Scripts
 
