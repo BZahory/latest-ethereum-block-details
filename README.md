@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Check it out!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The website is hosted on my website here: [http://bzah.bz/latest-ethereum-block-details/](http://bzah.bz/latest-ethereum-block-details/)
 
 ## Available Scripts
 
