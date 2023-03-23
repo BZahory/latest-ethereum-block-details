@@ -39,7 +39,7 @@ const Erc20TransferModal = () => {
           {/*content*/}
           <div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
             {/*header*/}
-            <div className='flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t'>
+            <div className='flex flex-col p-5 border-b border-solid border-slate-200 rounded-t'>
               <h3 className='text-3xl font-semibold'>ERC-20 Transfers in block</h3>
               <h3 className='text-xl text-gray-500 font-semibold'>Ether transfers are included</h3>
             </div>
