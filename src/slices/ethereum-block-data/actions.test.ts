@@ -16,7 +16,7 @@ jest.mock('alchemy-sdk', () => ({
   }),
 }));
 
-jest.mock('axios', () => ({ get: () => Promise.resolve({ ethereum: { usd: 1000 } }) }));
+jest.mock('axios', () => ({ get: () => Promise.resolve({ data: { ethereum: { usd: 1000 } } }) }));
 
 test('updateLatestBlock', async () => {
   const dispatch = jest.fn();
