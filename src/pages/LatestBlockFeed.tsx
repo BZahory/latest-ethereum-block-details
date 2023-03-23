@@ -4,10 +4,11 @@ import {
   getLatestEthereumBlockTransactions,
   getLatestEtherPrice,
 } from 'slices/ethereum-block-data/selector';
-import { BLOCK_REFRESH_INTERVAL, ResponseStatus } from '../constants';
+import { BLOCK_REFRESH_INTERVAL, REFRESH_BUFFER, ResponseStatus } from '../constants';
 import TransactionBlock from 'components/TransactionBlock';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Erc20TransferModal from 'components/Erc20TransferModal';
+import { getCurrentTime } from '../utils';
 
 const LatestBlockFeed = () => {
   const dispatch = useAppDispatch();
@@ -15,19 +16,34 @@ const LatestBlockFeed = () => {
   const { status: ethPriceStatus } = useAppSelector(getLatestEtherPrice);
   const { transactions, status, blockNumber } = useAppSelector(getLatestEthereumBlockTransactions);
 
+  const [lastFetch, setLastFetch] = useState<number>(0);
+
   useEffect(() => {
     const refreshFunc = () => {
       dispatch(updateLatestBlock());
       if (ethPriceStatus !== ResponseStatus.Fetched) dispatch(updateLatestEtherPrice());
+      setLastFetch(getCurrentTime());
     };
 
-    refreshFunc();
+    let timeout: NodeJS.Timeout | undefined;
+
+    const bufferCompletionTime = lastFetch + REFRESH_BUFFER;
+
+    if (bufferCompletionTime < getCurrentTime()) {
+      refreshFunc(); // refresh immediately if not in buffer period
+    } else {
+      timeout = setTimeout(() => refreshFunc(), bufferCompletionTime - getCurrentTime()); // refresh as soon as buffer is over
+    }
+
     const interval = setInterval(() => {
       refreshFunc();
     }, BLOCK_REFRESH_INTERVAL);
 
-    return () => clearInterval(interval);
-  }, [dispatch, ethPriceStatus]);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [dispatch, ethPriceStatus, lastFetch]);
 
   if (transactions.length > 0) {
     return (

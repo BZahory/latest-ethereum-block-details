@@ -43,6 +43,9 @@
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off"
     },
+    "globals": {
+      "NodeJS": true
+    },
     "overrides": [
       {
         "files": [

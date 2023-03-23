@@ -8,3 +8,5 @@ export enum ResponseStatus { // various API states
 }
 
 export const BLOCK_REFRESH_INTERVAL = 12 * 1000; // 12 seconds
+
+export const REFRESH_BUFFER = 3 * 1000; // 3 seconds
