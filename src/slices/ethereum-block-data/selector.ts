@@ -14,3 +14,10 @@ export const getLatestEtherPrice = (state: RootState) => {
     status: state.ethereumBlockDataReducer.ethPrice.status,
   };
 };
+
+export const getSelectedTransactionErc20Transfers = (state: RootState) => {
+  return {
+    transfers: state.ethereumBlockDataReducer.selectedErc20Data.transfers,
+    status: state.ethereumBlockDataReducer.selectedErc20Data.status,
+  };
+};

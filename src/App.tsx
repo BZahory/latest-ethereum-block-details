@@ -7,6 +7,7 @@ import {
 import { BLOCK_REFRESH_INTERVAL, ResponseStatus } from './constants';
 import TransactionBlock from 'components/TransactionBlock';
 import { useEffect } from 'react';
+import Erc20TransferModal from 'components/Erc20TransferModal';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function App() {
             <TransactionBlock key={tx.hash} transaction={tx} />
           ))}
         </div>
+        <Erc20TransferModal />
       </div>
     );
   } else if (status === ResponseStatus.Error) {
