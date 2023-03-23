@@ -28,7 +28,7 @@ function App() {
     return () => clearInterval(interval);
   }, [dispatch, ethPriceStatus]);
 
-  if (status === ResponseStatus.Fetched && transactions.length > 0) {
+  if (transactions.length > 0) {
     return (
       <div className='flex flex-col'>
         <h1 className='text-3xl text-center'>block number: {blockNumber}</h1>
