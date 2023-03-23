@@ -26,7 +26,7 @@ function App() {
     }, BLOCK_REFRESH_INTERVAL);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dispatch, ethPriceStatus]);
 
   if (status === ResponseStatus.Fetched && transactions.length > 0) {
     return (
