@@ -18,7 +18,7 @@ const Erc20TransferModal = () => {
           <div key={erc20Transfer.hash}>
             <span className='font-bold'>{erc20Transfer.from}</span> sent{' '}
             <span className='font-extrabold'>
-              {String((erc20Transfer.value ?? 'an unknown amount') + ' ' + erc20Transfer.asset)}
+              {String((erc20Transfer.value ?? 'an unknown amount of') + ' ' + erc20Transfer.asset)}
             </span>{' '}
             to <span className='font-bold'>{erc20Transfer.to}</span>
           </div>
