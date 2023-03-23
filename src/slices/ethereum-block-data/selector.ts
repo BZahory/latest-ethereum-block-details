@@ -6,3 +6,10 @@ export const getLatestEthereumBlockTransactions = (state: RootState) => {
     status: state.ethereumBlockDataReducer.latestTransactions.status,
   };
 };
+
+export const getLatestEtherPrice = (state: RootState) => {
+  return {
+    price: state.ethereumBlockDataReducer.ethPrice.value,
+    status: state.ethereumBlockDataReducer.ethPrice.status,
+  };
+};

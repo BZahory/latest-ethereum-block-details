@@ -1,13 +1,15 @@
 import { TransactionResponse } from 'alchemy-sdk';
 import { ResponseStatus } from '../../constants';
-import { GET_LATEST_BLOCK } from './constants';
+import { GET_LATEST_BLOCK, GET_LATEST_ETHER_PRICE } from './constants';
 
 export interface ReducerState {
   latestTransactions: { value: TransactionResponse[]; error: any; status: ResponseStatus };
+  ethPrice: { value: number | undefined; error: any; status: ResponseStatus };
 }
 
 export const initialState: ReducerState = {
   latestTransactions: { value: [], error: undefined, status: ResponseStatus.Unfetched },
+  ethPrice: { value: undefined, error: undefined, status: ResponseStatus.Unfetched },
 };
 
 export default function ethereumBlockDataReducer(
@@ -39,6 +41,34 @@ export default function ethereumBlockDataReducer(
         latestTransactions: {
           ...state.latestTransactions,
           value: initialState.latestTransactions.value,
+          error: payload.error,
+          status: ResponseStatus.Error,
+        },
+      };
+    case GET_LATEST_ETHER_PRICE.LOADING:
+      return {
+        ...state,
+        ethPrice: {
+          ...state.ethPrice,
+          error: initialState.ethPrice.error,
+          status: ResponseStatus.Loading,
+        },
+      };
+    case GET_LATEST_ETHER_PRICE.SUCCESS:
+      return {
+        ...state,
+        ethPrice: {
+          ...state.ethPrice,
+          value: payload.price,
+          status: ResponseStatus.Fetched,
+        },
+      };
+    case GET_LATEST_ETHER_PRICE.ERROR:
+      return {
+        ...state,
+        ethPrice: {
+          ...state.ethPrice,
+          value: initialState.ethPrice.value,
           error: payload.error,
           status: ResponseStatus.Error,
         },

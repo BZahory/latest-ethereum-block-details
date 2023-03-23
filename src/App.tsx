@@ -1,4 +1,4 @@
-import { updateLatestBlock } from 'slices/ethereum-block-data/actions';
+import { updateLatestBlock, updateLatestEtherPrice } from 'slices/ethereum-block-data/actions';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getLatestEthereumBlockTransactions } from 'slices/ethereum-block-data/selector';
 import { ResponseStatus } from './constants';
@@ -10,6 +10,7 @@ function App() {
 
   useEffect(() => {
     dispatch(updateLatestBlock()); // TODO: remove/replace later (test)
+    dispatch(updateLatestEtherPrice()); // TODO: remove/replace later (test)
   }, []);
 
   const { transactions, status } = useAppSelector(getLatestEthereumBlockTransactions);

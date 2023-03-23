@@ -5,3 +5,5 @@ export const createAsyncTypeObject = (baseConstant: string) => ({
 });
 
 export const GET_LATEST_BLOCK = createAsyncTypeObject('GET_LATEST_BLOCK');
+
+export const GET_LATEST_ETHER_PRICE = createAsyncTypeObject('GET_LATEST_ETHER_PRICE');
