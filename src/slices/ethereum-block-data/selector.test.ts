@@ -6,6 +6,7 @@ const initialState = {
     value: ['test', 'test'] as any,
     error: 'error',
     status: ResponseStatus.Fetched,
+    blockNumber: 500,
   },
   ethPrice: {
     value: 1500,
@@ -17,11 +18,12 @@ const initialState = {
 test('getLatestEthereumBlockTransactions()', () => {
   for (let i = 0; i < 2; i++) {
     // loop ensures selector purity
-    const { status, transactions } = getLatestEthereumBlockTransactions({
+    const { status, transactions, blockNumber } = getLatestEthereumBlockTransactions({
       ethereumBlockDataReducer: initialState,
     });
     expect(status).toBe(ResponseStatus.Fetched);
     expect(transactions).toEqual(initialState.latestTransactions.value);
+    expect(blockNumber).toEqual(initialState.latestTransactions.blockNumber);
   }
 });
 

@@ -12,6 +12,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   const { status: ethPriceStatus } = useAppSelector(getLatestEtherPrice);
+  const { transactions, status, blockNumber } = useAppSelector(getLatestEthereumBlockTransactions);
 
   useEffect(() => {
     const refreshFunc = () => {
@@ -27,14 +28,15 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const { transactions, status } = useAppSelector(getLatestEthereumBlockTransactions);
-
   if (status === ResponseStatus.Fetched && transactions.length > 0) {
     return (
-      <div className='flex flex-col w-full gap-y-1 items-center'>
-        {transactions.map((tx) => (
-          <TransactionBlock key={tx.hash} transaction={tx} />
-        ))}
+      <div className='flex flex-col'>
+        <h1 className='text-3xl text-center'>block number: {blockNumber}</h1>
+        <div className='flex flex-col w-full gap-y-1 items-center'>
+          {transactions.map((tx) => (
+            <TransactionBlock key={tx.hash} transaction={tx} />
+          ))}
+        </div>
       </div>
     );
   } else if (status === ResponseStatus.Error) {

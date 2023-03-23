@@ -16,7 +16,10 @@ export const updateLatestBlock = () => async (dispatch: Dispatch<any>) => {
 
     const latestBlockTxs = latestBlock.transactions;
 
-    dispatch({ payload: { transactions: latestBlockTxs }, type: GET_LATEST_BLOCK.SUCCESS });
+    dispatch({
+      payload: { transactions: latestBlockTxs, blockNumber: latestBlockNumber },
+      type: GET_LATEST_BLOCK.SUCCESS,
+    });
   } catch (e) {
     dispatch({ payload: { error: e }, type: GET_LATEST_BLOCK.ERROR });
   }

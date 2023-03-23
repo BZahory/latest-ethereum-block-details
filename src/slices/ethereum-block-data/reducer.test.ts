@@ -3,7 +3,12 @@ import { GET_LATEST_BLOCK, GET_LATEST_ETHER_PRICE } from './constants';
 import reducer from './reducer';
 
 const initialState = {
-  latestTransactions: { value: [], error: undefined, status: ResponseStatus.Unfetched },
+  latestTransactions: {
+    value: [],
+    error: undefined,
+    status: ResponseStatus.Unfetched,
+    blockNumber: undefined,
+  },
   ethPrice: { value: undefined, error: undefined, status: ResponseStatus.Unfetched },
 };
 
@@ -15,14 +20,16 @@ describe('GET_LATEST_BLOCK', () => {
     expect(loadState.latestTransactions.status).toBe(ResponseStatus.Loading);
     expect(loadState.latestTransactions.error).toBe(undefined);
     expect(loadState.latestTransactions.value).toEqual([]);
+    expect(loadState.latestTransactions.blockNumber).toEqual(undefined);
 
     const successState = reducer(initialState, {
       type: GET_LATEST_BLOCK.SUCCESS,
-      payload: { transactions: ['test1', 'test2'] },
+      payload: { transactions: ['test1', 'test2'], blockNumber: 5050 },
     });
     expect(successState.latestTransactions.status).toBe(ResponseStatus.Fetched);
     expect(successState.latestTransactions.error).toBe(undefined);
     expect(successState.latestTransactions.value).toEqual(['test1', 'test2']);
+    expect(successState.latestTransactions.blockNumber).toEqual(5050);
   });
 
   it('ERROR', () => {
@@ -32,6 +39,7 @@ describe('GET_LATEST_BLOCK', () => {
     expect(loadState.latestTransactions.status).toBe(ResponseStatus.Loading);
     expect(loadState.latestTransactions.error).toBe(undefined);
     expect(loadState.latestTransactions.value).toEqual([]);
+    expect(loadState.latestTransactions.blockNumber).toEqual(undefined);
 
     const failState = reducer(initialState, {
       type: GET_LATEST_BLOCK.ERROR,
@@ -40,6 +48,7 @@ describe('GET_LATEST_BLOCK', () => {
     expect(failState.latestTransactions.status).toBe(ResponseStatus.Error);
     expect(failState.latestTransactions.error).toEqual({ message: 'test', key: 'test2', code: 1 });
     expect(failState.latestTransactions.value).toEqual([]);
+    expect(failState.latestTransactions.blockNumber).toEqual(undefined);
   });
 });
 

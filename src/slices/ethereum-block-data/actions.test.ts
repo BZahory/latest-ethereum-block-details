@@ -4,7 +4,7 @@ jest.mock('alchemy-sdk', () => ({
   Alchemy: jest.fn().mockImplementation(() => {
     return {
       core: {
-        getBlockNumber: async () => 1,
+        getBlockNumber: async () => 50,
         getBlockWithTransactions: async () => ({
           transactions: ['test1', 'test2'],
         }),
@@ -25,7 +25,10 @@ test('updateLatestBlock', async () => {
   expect(dispatch).toHaveBeenCalledTimes(2);
   expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_LATEST_BLOCK_LOADING' }]);
   expect(dispatch.mock.calls[1]).toEqual([
-    { payload: { transactions: ['test1', 'test2'] }, type: 'GET_LATEST_BLOCK_SUCCESS' },
+    {
+      payload: { transactions: ['test1', 'test2'], blockNumber: 50 },
+      type: 'GET_LATEST_BLOCK_SUCCESS',
+    },
   ]);
 });
 

@@ -4,6 +4,7 @@ export const getLatestEthereumBlockTransactions = (state: RootState) => {
   return {
     transactions: state.ethereumBlockDataReducer.latestTransactions.value,
     status: state.ethereumBlockDataReducer.latestTransactions.status,
+    blockNumber: state.ethereumBlockDataReducer.latestTransactions.blockNumber,
   };
 };
 

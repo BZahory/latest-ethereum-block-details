@@ -3,12 +3,22 @@ import { ResponseStatus } from '../../constants';
 import { GET_LATEST_BLOCK, GET_LATEST_ETHER_PRICE } from './constants';
 
 export interface ReducerState {
-  latestTransactions: { value: TransactionResponse[]; error: any; status: ResponseStatus };
+  latestTransactions: {
+    value: TransactionResponse[];
+    error: any;
+    status: ResponseStatus;
+    blockNumber: number | undefined;
+  };
   ethPrice: { value: number | undefined; error: any; status: ResponseStatus };
 }
 
 export const initialState: ReducerState = {
-  latestTransactions: { value: [], error: undefined, status: ResponseStatus.Unfetched },
+  latestTransactions: {
+    value: [],
+    error: undefined,
+    status: ResponseStatus.Unfetched,
+    blockNumber: undefined,
+  },
   ethPrice: { value: undefined, error: undefined, status: ResponseStatus.Unfetched },
 };
 
@@ -33,6 +43,7 @@ export default function ethereumBlockDataReducer(
           ...state.latestTransactions,
           value: payload.transactions,
           status: ResponseStatus.Fetched,
+          blockNumber: payload.blockNumber,
         },
       };
     case GET_LATEST_BLOCK.ERROR:
