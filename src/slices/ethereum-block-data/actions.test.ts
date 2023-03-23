@@ -5,24 +5,35 @@ import {
   updateLatestEtherPrice,
 } from './actions';
 
-jest.mock('alchemy-sdk', () => ({
-  Alchemy: jest.fn().mockImplementation(() => {
-    return {
-      core: {
-        getBlockNumber: async () => 50,
-        getBlockWithTransactions: async () => ({
-          transactions: ['test1', 'test2'],
-        }),
-        getAssetTransfers: async () => ({
-          transfers: ['transfer1', 'transfer2'],
-        }),
-      },
-    };
-  }),
-  Network: jest.fn().mockImplementation(() => {
-    return { ETH_MAINNET: 1 };
-  }),
-}));
+jest.mock('alchemy-sdk', () => {
+  return {
+    toHex: () => 0x0,
+    AssetTransfersCategory: {
+      EXTERNAL: 'external',
+      INTERNAL: 'internal',
+      ERC20: 'erc20',
+      ERC721: 'erc721',
+      ERC1155: 'erc1155',
+      SPECIALNFT: 'specialnft',
+    },
+    Alchemy: jest.fn().mockImplementation(() => {
+      return {
+        core: {
+          getBlockNumber: async () => 50,
+          getBlockWithTransactions: async () => ({
+            transactions: ['test1', 'test2'],
+          }),
+          getAssetTransfers: async () => ({
+            transfers: ['transfer1', 'transfer2'],
+          }),
+        },
+      };
+    }),
+    Network: jest.fn().mockImplementation(() => {
+      return { ETH_MAINNET: 1 };
+    }),
+  };
+});
 
 jest.mock('axios', () => ({ get: () => Promise.resolve({ data: { ethereum: { usd: 1000 } } }) }));
 
@@ -31,7 +42,7 @@ test('updateLatestBlock', async () => {
 
   await updateLatestBlock()(dispatch);
   expect(dispatch).toHaveBeenCalledTimes(2);
-  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_LATEST_BLOCK_LOADING' }]);
+  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_LATEST_BLOCK_LOADING', payload: {} }]);
   expect(dispatch.mock.calls[1]).toEqual([
     {
       payload: { transactions: ['test1', 'test2'], blockNumber: 50 },
@@ -45,7 +56,7 @@ test('updateLatestEtherPrice', async () => {
 
   await updateLatestEtherPrice()(dispatch);
   expect(dispatch).toHaveBeenCalledTimes(2);
-  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_LATEST_ETHER_PRICE_LOADING' }]);
+  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_LATEST_ETHER_PRICE_LOADING', payload: {} }]);
   expect(dispatch.mock.calls[1]).toEqual([
     { payload: { price: 1000 }, type: 'GET_LATEST_ETHER_PRICE_SUCCESS' },
   ]);
@@ -56,10 +67,10 @@ test('getErc20Transfers', async () => {
 
   await getErc20Transfers({ from: 'test', to: 'test' } as any, 2 as any)(dispatch);
   expect(dispatch).toHaveBeenCalledTimes(2);
-  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_ERC_20_TRANSFERS_LOADING' }]);
+  expect(dispatch.mock.calls[0]).toEqual([{ type: 'GET_ERC_20_TRANSFERS_LOADING', payload: {} }]);
   expect(dispatch.mock.calls[1]).toEqual([
     {
-      payload: { transfers: ['transfer1', 'transfer2'] },
+      payload: { transfers: ['transfer1', 'transfer2', 'transfer1', 'transfer2'] },
       type: 'GET_ERC_20_TRANSFERS_SUCCESS',
     },
   ]);
@@ -70,5 +81,7 @@ test('clearSelectedTransaction', async () => {
 
   await clearSelectedTransaction()(dispatch);
   expect(dispatch).toHaveBeenCalledTimes(1);
-  expect(dispatch.mock.calls[0]).toEqual([{ type: 'CLEAR_SELECTED_TRANSACTION_SRC_20_DATA' }]);
+  expect(dispatch.mock.calls[0]).toEqual([
+    { type: 'CLEAR_SELECTED_TRANSACTION_SRC_20_DATA', payload: {} },
+  ]);
 });
