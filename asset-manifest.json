@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/latest-ethereum-block-details/static/css/main.66766db8.css",
-    "main.js": "/latest-ethereum-block-details/static/js/main.eaa0c2d7.js",
+    "main.js": "/latest-ethereum-block-details/static/js/main.4003cd89.js",
     "static/js/637.f796171e.chunk.js": "/latest-ethereum-block-details/static/js/637.f796171e.chunk.js",
     "static/js/248.d053c76f.chunk.js": "/latest-ethereum-block-details/static/js/248.d053c76f.chunk.js",
     "static/js/787.d4f7b5b9.chunk.js": "/latest-ethereum-block-details/static/js/787.d4f7b5b9.chunk.js",
     "index.html": "/latest-ethereum-block-details/index.html",
     "main.66766db8.css.map": "/latest-ethereum-block-details/static/css/main.66766db8.css.map",
-    "main.eaa0c2d7.js.map": "/latest-ethereum-block-details/static/js/main.eaa0c2d7.js.map",
+    "main.4003cd89.js.map": "/latest-ethereum-block-details/static/js/main.4003cd89.js.map",
     "637.f796171e.chunk.js.map": "/latest-ethereum-block-details/static/js/637.f796171e.chunk.js.map",
     "248.d053c76f.chunk.js.map": "/latest-ethereum-block-details/static/js/248.d053c76f.chunk.js.map",
     "787.d4f7b5b9.chunk.js.map": "/latest-ethereum-block-details/static/js/787.d4f7b5b9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.66766db8.css",
-    "static/js/main.eaa0c2d7.js"
+    "static/js/main.4003cd89.js"
   ]
 }
