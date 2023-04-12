@@ -1,4 +1,4 @@
-export const ALCHEMY_API_KEY = 'GNauZOAEhjOc34zQQqQuXorOlmC6wJ6W'; // this would be in .env or through kubernetes secrets if deployed, but I put it here for your convenience
+export const ALCHEMY_API_KEY = 'GdcbSJ7kItnzjGyEy_9i7fxb6lWPhr4d'; // this would be in .env or through kubernetes secrets if deployed, but I put it here for your convenience
 
 export enum ResponseStatus { // various API states
   Unfetched,
